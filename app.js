@@ -88,6 +88,9 @@ function startTimer() {
     timer = setInterval(() => {
         timeLeft--;
         timerDisplay.textContent = `${timeLeft}s`;
+        if (timeLeft === 5) {
+            timerDisplay.style.backgroundColor = 'red';
+        }
 
         if (timeLeft === 0) {
             clearInterval(timer);
@@ -181,8 +184,12 @@ const optionList = document.querySelector('.option-list');
 
 // Get question fron question array
 function showQuestions(index) {
-    const questionText = document.querySelector('.question-text')
-    questionText.textContent = `${questions[index].numb}. ${questions[index].question}`
+    const questionText = document.querySelector('.question-text');
+    questionText.textContent = `${questions[index].numb}. ${questions[index].question}`;
+
+    // Reset the background color to its original state
+    const timerDisplay = document.querySelector('.timer-display');
+    timerDisplay.style.backgroundColor = ''; 
 
     let optionTag = `<div class="option"><span>${questions[index].options[0]}</span></div>
         <div class="option"><span>${questions[index].options[1]}</span></div>
