@@ -34,6 +34,12 @@ tryAgainBtn.onclick = () => {
     nextBtn.classList.remove('active')
     resultBox.classList.remove('active')
 
+     // Shuffle questions and options again
+     questions = shuffleArray(questions);
+     questions.forEach((question) => {
+         question.options = shuffleArray(question.options);
+     });
+
     questionCount = 0
     questionNumb = 1
     userScore = 0
@@ -54,27 +60,124 @@ goHomeBtn.onclick = () => {
     questionCounter(questionNumb)
 }
 
+// Shuffle function to randomize array elements
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Shuffle questions and options
+questions = shuffleArray(questions);
+questions.forEach((question) => {
+    question.options = shuffleArray(question.options);
+});
+
+// Time variable
+let timer;
+
+// Timer function
+function startTimer() {
+    let timeLeft = 15;
+
+    const timerDisplay = document.querySelector('.timer-display');
+    timerDisplay.textContent = `${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            handleTimerExpiration();
+        }
+    }, 1000);
+}
+
+//stop timer function
+function stopTimer() {
+    clearInterval(timer);
+}
+
+
+// Function to handle timer expiration and move to the next question
+function handleTimerExpiration() {
+    const correctAnswer = questions[questionCount].answer;
+    const options = document.querySelectorAll('.option');
+
+    // Mark the current question as incorrect
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].textContent === correctAnswer) {
+            options[i].classList.add('correct');
+        } else {
+            options[i].classList.add('incorrect');
+        }
+    }
+
+    // Disable all options
+    for (let i = 0; i < options.length; i++) {
+        options[i].classList.add('disabled');
+    }
+
+    // Show the next button
+    const nextBtn = document.querySelector('.next-btn');
+    nextBtn.classList.add('active');
+
+    // Stop the timer
+    stopTimer();
+
+    // Automatically move to the next question after a delay (you can adjust the delay as needed)
+    setTimeout(() => {
+        moveToNextQuestion();
+    }, 1000);
+}
+
+// Function to move to the next question
+function moveToNextQuestion() {
+    if (questionCount < questions.length - 1) {
+        questionCount++;
+        showQuestions(questionCount);
+
+        questionNumb++;
+        questionCounter(questionNumb);
+
+        // Hide the next button
+        const nextBtn = document.querySelector('.next-btn');
+        nextBtn.classList.remove('active');
+        
+        // Start the timer for the next question
+        startTimer();
+    } else {
+        console.log("Questions completed");
+        showResultBox();
+    }
+}
+
 let questionCount = 0
 let questionNumb = 1
 let userScore = 0
 
+
 const nextBtn = document.querySelector('.next-btn')
 nextBtn.onclick = () => {
+    stopTimer();
     if (questionCount < questions.length - 1) {
         questionCount++;
-        showQuestions(questionCount)
+        showQuestions(questionCount);
 
-        questionNumb++
-        questionCounter(questionNumb)
+        questionNumb++;
+        questionCounter(questionNumb);
 
-        nextBtn.classList.remove('active')
+        nextBtn.classList.remove('active');
     } else {
         console.log("Questions completed");
         showResultBox();
     }
     
-}
-const optionList = document.querySelector('.option-list')
+};
+const optionList = document.querySelector('.option-list');
 
 // Get question fron question array
 function showQuestions(index) {
@@ -92,6 +195,8 @@ function showQuestions(index) {
     for (let i = 0; i < option.length; i++) {
         option[i].setAttribute('onclick', 'optionSelected(this)')
     }
+
+    startTimer();
 }
 
 function optionSelected(answer) {
@@ -120,6 +225,8 @@ function optionSelected(answer) {
     }
 
     nextBtn.classList.add('active')
+
+    stopTimer();
 }
 
 function questionCounter(index) {

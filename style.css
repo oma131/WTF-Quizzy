@@ -27,28 +27,51 @@ body {
     z-index: 100;
 }
 .logo {
+    font-family: 'Clash Display', sans-serif;
+    letter-spacing: 5px;
     font-size: 32px;
     color: #fff;
     text-decoration: none;
     font-weight: 700;
     filter: drop-shadow(0 0 5px #09001d);
 }
-.navbar a {
-    font-size: 18px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    margin-left: 35px;
-    transition: all 0.3s ease;
-}
 
-.navbar a:hover, .navbar a.active {
-    color: #c40094;
+/* Nav Button styling */
+
+.nav-buttons{
+    /* background-color: blue; */
+    display: flex;
+}
+.nav-buttons button {
+    width: 120px;
+    height: 40px;
+    background-color: #08b8b8;
+    border: 2px solid #08b8b8;
+    outline: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.nav-buttons button:nth-child(2):hover {
+    background-color: #04dfdf;
+    border-color: #04dfdf;
+}
+.nav-buttons button:nth-child(1) {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    text-decoration: underline;
+}
+.nav-buttons button:nth-child(1):hover {
+    color: #15f8f8;
 }
 
 /* Main container styling */
 .main {
-    background: linear-gradient(45deg, #02001b, #280029);
+    background: linear-gradient(45deg, #02010f, #002520);
     min-height: 100vh;
     background-size: cover;
     background-position: center;
@@ -93,36 +116,7 @@ body {
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin-bottom: 30px;
 }
-.start-btn {
-    position: relative;
-    width: 190px;
-    height: 55px;
-    background: linear-gradient(45deg, #00dbde, #fc00ff);
-    border: none;
-    outline: none;
-    border-radius: 6px;
-    font-size: 18px;
-    color: #fff;
-    letter-spacing: 1px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.start-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: solid;
-    border-color: #02001b rgba(255, 255, 255, .3) rgba(255, 255, 255, .3) #02001b;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
-    border-bottom-right-radius: 6px;
-    transition: .7s ease-out;
-}
 
-.start-btn:hover::before {
-    border-width: 14px;
-}
 
 /* Popup info styling */
 
@@ -195,7 +189,7 @@ body {
 /* quiz section styling */
 .quiz-section {
     position: relative;
-    left: -50%;
+    left: -90%;
     /* left: 0; */
     width: 100%;
     z-index: 100;
@@ -416,4 +410,48 @@ body {
 .buttons button:nth-child(2):hover {
     background-color: #c40094;
     color: #fff;
+}
+
+.start-btn {
+    position: relative;
+    width: 190px;
+    height: 55px;
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.start-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: solid;
+    border-color: #020f16 rgba(255, 255, 255, .3) rgba(255, 255, 255, .3) #020f16;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+    border-bottom-right-radius: 5px;
+    transition: .7s ease-out;
+}
+
+.start-btn:hover::before {
+    border-width: 14px;
+}
+
+.timer-wrapper {
+    border: 2px solid #fc00ff;
+    padding: 10px;
+    border-radius: 6px;
+}
+.timer-display {
+    background-color: #950170;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
 }
